@@ -14,8 +14,17 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            
+            // プロジェクト名
+            $table->string('name');
+
+            // 外部キー
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -14,6 +14,14 @@ return new class extends Migration
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            
+            $table->foreignId('project_id') // ◀ project_id カラム
+                ->constrained('projects') // ◀ projects テーブルの id と紐付け
+                ->onDelete('cascade');  // ◀ プロジェクトが削除されたら、タスクも削除
+
+            $table->string('title'); // タスクのタイトル
+            $table->text('description')->nullable(); // 詳細（nullでもOK）
+            $table->boolean('is_completed')->default(false); // 完了フラグ（デフォルトはfalse=未完了）
         });
     }
 
