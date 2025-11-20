@@ -15,11 +15,13 @@ Route::middleware('auth')->group(function () {
     // Route::view('/home', 'auth.home');
     Route::get('/home', function () {
         return view('auth.home');
-    });
+    })->name('home');
 
     // タスクのCRUD (一覧、作成、保存、詳細、編集、更新、削除)
-    Route::resource('projects', ProjectController::class);
-    Route::resource('todos', TodoController::class);
+    Route::resource('/projects', ProjectController::class);
+    Route::resource('/todos', TodoController::class);
+
+    Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
 
     // TODO: ここにダッシュボードのルートも追加する (例: Route::get('/dashboard', ...))
     // とりあえずトップページをタスク一覧にしておく

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -20,15 +21,27 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * プロジェクトを保存
      */
     public function store(Request $request)
     {
-        //
+        // 1. バリデーション
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // 2. ログインユーザーに紐づけて作成
+        // (Auth::user()->projects() を使うと user_id が自動で入ります)
+        Auth::user()->projects()->create([
+            'name' => $validated['name'],
+        ]);
+
+        // 3. ダッシュボード(タスク一覧)に戻る
+        return redirect()->route('home');
     }
 
     /**

@@ -3,6 +3,10 @@
 @section('title', 'Dashboard')
 
 @section('content')
+    <div style="margin-bottom: 20px;">
+        <a href="{{ route('projects.create') }}">＋ 新しいプロジェクトを作る</a>
+    </div>
+    
     <h2>タスク作成</h2>
     <h2>タスク一覧</h2>
     @foreach ($projectsWithTodos as $project)
@@ -56,5 +60,9 @@
         
         <button type="submit">タスクを追加</button>
     </form>
+
+    @push('scripts')
+        @vite('resources/js/todo.js')
+    @endpush
 
 @endsection

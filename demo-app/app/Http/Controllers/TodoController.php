@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTodoRequest;
 use App\Models\Project;
 use App\Models\Todo;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TodoController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -85,16 +88,47 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Todo $todo)
+    public function update(StoreTodoRequest $request, Todo $todo)
     {
-        //
+        // 認可チェック: ログインユーザーは、この $todo を 'update' できるか？
+        // (TodoPolicy@update が呼ばれる)
+        $this->authorize('update', $todo); 
+
+        // --- 認可OK ---
+        
+        $validated = $request->validated(); // (Update用のRequestも別途定義するのが望ましい)
+        $todo->update($validated);
+        
+        return redirect()->route('home');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Todo $todo)
     {
-        //
+        // 認可チェック: ログインユーザーは、この $todo を 'delete' できるか？
+        // (TodoPolicy@delete が呼ばれる)
+        $this->authorize('delete', $todo);
+
+        // --- 認可OK ---
+        
+        $todo->delete();
+        
+        return redirect()->route('home');
     }
+
+    public function toggle(Todo $todo): JsonResponse
+    {
+        // 認可は絶対に忘れない！ (update権限で代用)
+        $this->authorize('update', $todo);
+        
+        // is_completed を反転させる (true -> false, false -> true)
+        $todo->is_completed = !$todo->is_completed;
+        $todo->save();
+        
+        // JS側に、成功したことと新しい状態を JSON で返す
+        return response()->json([
+            'status' => 'success',
+            'is_completed' => $todo->is_completed,
+        ]);
+    }
+
 }
