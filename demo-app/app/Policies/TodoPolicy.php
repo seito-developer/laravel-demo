@@ -37,7 +37,7 @@ class TodoPolicy
      */
     public function update(User $user, Todo $todo): bool
     {
-        return false;
+        return $user->id === $todo->project->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class TodoPolicy
      */
     public function delete(User $user, Todo $todo): bool
     {
-        return false;
+        return $user->id === $todo->project->user_id;
     }
 
     /**

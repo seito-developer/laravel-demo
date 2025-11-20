@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTodoRequest extends FormRequest
@@ -11,7 +12,13 @@ class StoreTodoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        // 送信されてきた 'project_id' からプロジェクトを取得
+        $project = Project::find($this->input('project_id'));
+
+        // プロジェクトが存在し、かつ、
+        // ログインユーザーが、そのプロジェクトを 'update' できるか？ (ProjectPolicy@update が呼ばれる)
+        return $project && $this->user()->can('update', $project);
+
     }
 
     /**

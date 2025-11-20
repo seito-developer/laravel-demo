@@ -6,6 +6,10 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\Project;
+use App\Models\Todo;
+use App\Policies\ProjectPolicy;
+use App\Policies\TodoPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -16,6 +20,11 @@ use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Project::class => ProjectPolicy::class, // ◀ 追加
+        Todo::class => TodoPolicy::class,       // ◀ 追加
+    ];
     /**
      * Register any application services.
      */
