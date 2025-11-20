@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('ppp');
     const checkboxes = document.querySelectorAll('.toggle-complete');
 
     checkboxes.forEach(checkbox => {
