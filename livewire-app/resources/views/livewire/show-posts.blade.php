@@ -1,9 +1,11 @@
 <div class="space-y-4">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold">記事一覧</h1>
-        <flux:button href="{{ route('posts.create') }}" wire:navigate variant="primary">
-            新規作成
-        </flux:button>
+        @auth
+            <flux:button href="{{ route('posts.create') }}" wire:navigate variant="primary">
+                新規作成
+            </flux:button>
+        @endauth
     </div>
 
     @foreach($posts as $post)
