@@ -1,11 +1,19 @@
 <div class="space-y-4">
+    <h1 class="text-2xl font-bold">記事一覧</h1>
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">記事一覧</h1>
-        @auth
-            <flux:button href="{{ route('posts.create') }}" wire:navigate variant="primary">
-                新規作成
-            </flux:button>
-        @endauth
+        <flux:input 
+            wire:model.live.debounce.300ms="search" 
+            placeholder="タイトルで検索..." 
+            icon="magnifying-glass" 
+            class="w-64"
+        />
+        <div> 
+            @auth
+                <flux:button href="{{ route('posts.create') }}" wire:navigate variant="primary">
+                    新規作成
+                </flux:button>
+            @endauth
+        </div>
     </div>
 
     @foreach($posts as $post)
