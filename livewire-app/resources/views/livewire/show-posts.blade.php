@@ -20,4 +20,8 @@
             </flux:text>
         </article>
     @endforeach
+
+    <div class="mt-6">
+        {{ $posts->links() }}
+    </div>
 </div>
