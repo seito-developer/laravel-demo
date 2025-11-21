@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\CreatePost;
+use App\Livewire\EditPost;
 use App\Livewire\MyPosts;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
     
     Route::get('/posts/create', CreatePost::class)->name('posts.create');
-    
+    Route::get('/posts/{post}/edit', EditPost::class)->name('posts.edit');
     Route::get('/my-posts', MyPosts::class)->name('my-posts');
 });
 
