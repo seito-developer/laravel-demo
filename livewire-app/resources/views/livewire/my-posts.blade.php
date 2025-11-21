@@ -26,8 +26,14 @@
 
             <div class="flex items-center gap-2 shrink-0">
                 <flux:button 
+                    href="/posts/{{ $post->id }}" 
+                    variant="filled" 
+                    class="block group">
+                    記事を見る
+                </flux:button>
+
+                <flux:button 
                     href="/posts/{{ $post->id }}/edit" 
-                    wire:navigate 
                     icon="pencil-square" 
                     size="sm"
                 >
@@ -43,6 +49,7 @@
                 >
                     削除
                 </flux:button>
+                
             </div>
         </article>
     @endforeach
