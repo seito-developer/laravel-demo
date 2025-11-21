@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
+#[Title('記事作成ページ')]
 class CreatePost extends Component
 {
     #[Validate('required|min:3', message: 'タイトルは3文字以上で入力してください')]
@@ -24,7 +26,7 @@ class CreatePost extends Component
         Post::create([
             'title' => $this->title,
             'content' => $this->content,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
         ]);
 
         // 完了後のリセットと通知
