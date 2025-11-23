@@ -5,8 +5,10 @@ namespace App\Livewire;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('ダッシュボード')]
 class Dashboard extends Component
 {
     public function render()
