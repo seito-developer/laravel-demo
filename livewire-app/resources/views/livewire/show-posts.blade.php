@@ -17,7 +17,7 @@
     </div>
 
     @foreach($posts as $post)
-        <article class="p-4 shadow-lg">
+        <article class="p-4 shadow-lg bg-white">
             <a href="/posts/{{ $post->id }}" wire:navigate class="block group">
                 <flux:text class="mt-4">
                     {{ $post->created_at->format('Y/m/d') }}

@@ -19,19 +19,18 @@
                 <p class="text-sm text-gray-500 mt-1">
                     投稿日: {{ $post->created_at->format('Y/m/d H:i') }}
                 </p>
-                <p class="mt-2 text-gray-600 truncate max-w-xl">
+                <p class="mt-2 mb-5 text-gray-600 truncate max-w-xl">
                     {{ Str::limit($post->content, 100) }}
                 </p>
-            </div>
-
-            <div class="flex items-center gap-2 shrink-0">
                 <flux:button 
                     href="/posts/{{ $post->id }}" 
-                    variant="filled" 
+                    variant="ghost" 
                     class="block group">
                     記事を見る
                 </flux:button>
+            </div>
 
+            <div class="flex items-center gap-2 shrink-0">
                 <flux:button 
                     href="/posts/{{ $post->id }}/edit" 
                     icon="pencil-square" 
