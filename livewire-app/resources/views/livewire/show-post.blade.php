@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto p-6 shadow-lg bg-white">
+<div class="max-w-3xl mx-auto p-6 shadow-lg bg-white dark:bg-gray-800">
     <div class="mb-6">
         <flux:button href="{{ route('posts') }}" wire:navigate icon="arrow-left" variant="subtle">
             一覧に戻る

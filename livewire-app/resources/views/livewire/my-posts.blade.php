@@ -13,7 +13,7 @@
     @endif
 
     @foreach($posts as $post)
-        <article class="shadow-lg flex flex-col md:flex-row justify-between items-start gap-4 p-4">
+        <article class="shadow-lg flex flex-col md:flex-row justify-between items-start gap-4 p-4 dark:bg-gray-800">
             <div>
                 <h3 class="text-lg font-bold">{{ $post->title }}</h3>
                 <p class="text-sm text-gray-500 mt-1">
@@ -25,7 +25,7 @@
                 <flux:button 
                     href="/posts/{{ $post->id }}" 
                     variant="ghost" 
-                    class="block group">
+                    class="block group dark:bg-gray-700">
                     記事を見る
                 </flux:button>
             </div>
