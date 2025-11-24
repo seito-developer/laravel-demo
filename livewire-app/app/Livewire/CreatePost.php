@@ -8,33 +8,29 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-#[Title('記事作成ページ')]
+#[Title("記事作成ページ")]
 class CreatePost extends Component
 {
-    #[Validate('required|min:3', message: 'タイトルは3文字以上で入力してください')]
-    public $title = '';
+    #[Validate("required", message: "タイトルは必須です")]
+    #[Validate("min:3", message: "タイトルは3文字以上で入力してください")]
+    public $title = "";
 
-    #[Validate('required', message: '本文は必須です')]
-    public $content = '';
+    #[Validate("required", message: "本文は必須です")]
+    public $body = "";
 
-    public function save()
-    {
-        // バリデーション実行（属性で指定したルールが適用される）
+    public function save() {
         $this->validate();
 
-        // データの保存
         Post::create([
             'title' => $this->title,
-            'content' => $this->content,
+            'body' => $this->body,
             'user_id' => Auth::id(),
         ]);
 
-        // 完了後のリセットと通知
-        $this->reset(['title', 'content']);
+        $this->reset(['title', 'body']);
         session()->flash('status', '記事を投稿しました！');
-        
-        // 投稿一覧ページへ移動（後で作ります）
-        return $this->redirect('/posts', navigate: true);
+
+        // return $this->redirect('/posts', navigate: true);
     }
 
     public function render()

@@ -14,8 +14,8 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="pencil" :href="route('posts.create')" :current="request()->routeIs('posts.create')" wire:navigate>{{ __('Write') }}</flux:navlist.item>
-                    <flux:navlist.item icon="book-open" :href="route('my-posts')" :current="request()->routeIs('my-posts')" wire:navigate>{{ __('My Posts') }}</flux:navlist.item>
+                    <flux:navlist.item icon="pencil" :href="route('posts.create')" :current="request()->routeIs('posts.create')" wire:navigate>{{ __('記事作成ページ') }}</flux:navlist.item>
+                    <flux:navlist.item icon="book-open" :href="route('my-posts')" :current="request()->routeIs('my-posts')" wire:navigate>{{ __('自分の記事一覧') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

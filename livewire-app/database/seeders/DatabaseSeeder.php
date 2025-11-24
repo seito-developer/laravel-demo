@@ -17,22 +17,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $testUser = User::factory()->create([
+        $test_user = User::factory()->create([
             'name' => 'Test User',
-            'email' => 'seito.horiguchi@gmail.com',
+            'email' => 'test@example.com',
             'password' => Hash::make('password'),
         ]);
 
-        // 2. ランダムなユーザーを3名作成
-        $randomUsers = User::factory(3)->create();
+        $random_users = User::factory(3)->create();
 
-        // 3. 全ユーザー（固定1 + ランダム3）をひとつのコレクションにまとめる
-        $allUsers = $randomUsers->push($testUser);
+        $all_users = $random_users->push($test_user);
 
-        // 4. 100件の記事を作成（作成したユーザーたちをランダムに割り当て）
-        // recycle() を使うと、既存のモデル($allUsers)の中からランダムに選んで user_id に入れてくれます
-        Post::factory(100)
-            ->recycle($allUsers)
-            ->create();
+        Post::factory(200)->recycle($all_users)->create();
     }
 }

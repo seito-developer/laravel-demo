@@ -18,13 +18,9 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            // 日本語のそれっぽいタイトルと本文を自動生成
             'title' => fake()->realText(30),
-            'content' => fake()->realText(200),
-            
-            // user_id は DatabaseSeeder で recycle() されるので、
-            // 基本的にはそちらが優先されますが、単体で使う時のために定義しておきます
-            'user_id' => User::factory(),
+            'body' => fake()->realText(200),
+            'user_id' => User::factory()
         ];
     }
 }

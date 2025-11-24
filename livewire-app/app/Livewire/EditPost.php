@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Post;
-use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 class EditPost extends Component
 {
@@ -15,38 +15,32 @@ class EditPost extends Component
     public $title = '';
 
     #[Validate('required')]
-    public $content = '';
+    public $body = '';
 
-    // URLのパラメータから自動で $post を受け取る
-    public function mount(Post $post)
-    {
-        // セキュリティ：本人の記事でなければ403エラー
-        if ($post->user_id !== Auth::id()) {
+    public function mount(Post $post) {
+        if($post->user_id !== Auth::id()){
             abort(403);
         }
 
         $this->post = $post;
         $this->title = $post->title;
-        $this->content = $post->content;
+        $this->body = $post->body;
     }
 
-    public function update()
-    {
+    public function update(){
         $this->validate();
 
-        // 更新処理（念のためここでも本人確認）
-        if ($this->post->user_id !== Auth::id()) {
+        if($this->post->user_id !== Auth::id()){
             abort(403);
         }
 
         $this->post->update([
             'title' => $this->title,
-            'content' => $this->content,
+            'body' => $this->body,
         ]);
 
         session()->flash('status', '記事を更新しました！');
 
-        // マイページに戻る
         return $this->redirect('/my-posts', navigate: true);
     }
 

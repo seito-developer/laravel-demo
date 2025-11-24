@@ -9,19 +9,16 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('components.layouts.guest')]
-#[Title('記事一覧ページ')]
+#[Layout("components.layouts.guest")]
+#[Title("記事一覧ページ")]
 class ShowPosts extends Component
 {
     use WithPagination;
 
-    // 検索ワード用プロパティ（URLにも反映させる）
     #[Url]
-    public $search = '';
+    public $search = "";
 
-    // 検索ワードが更新されたら、ページネーションをリセットする
-    public function updatedSearch()
-    {
+    public function updateSearch(){
         $this->resetPage();
     }
 
