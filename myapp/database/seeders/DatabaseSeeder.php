@@ -4,13 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
@@ -18,22 +17,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $user = User::factory()->create([
+        $test_user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => bcrypt('password')
+            'password' => Hash::make('password'),
         ]);
 
-        Post::factory()
-            ->count(20)
-            ->create([
-                'user_id' => $user->id
-            ]);
+        $random_users = User::factory(3)->create();
 
-        // User::factory(10)->create()->each(function($other_user){
-        //     Post::factory()->count(100)->create([
-        //         'user_id' => $other_user->id
-        //     ]);
-        // });
+        $all_users = $random_users->push($test_user);
+
+        Post::factory(200)->recycle($all_users)->create();
     }
 }
